@@ -2,8 +2,12 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY target/*.jar mejor-project-techno-0.0.1-SNAPSHOT.jar
+COPY . .
+
+RUN chmod +x mvnw
+
+RUN ./mvnw clean package -DskipTests
 
 EXPOSE 9089
 
-ENTRYPOINT ["java","-jar","mejor-project-techno-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","target/*.jar"]
