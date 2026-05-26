@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <h1 class="h3 mb-4 fw-bold text-dark"
+                    th:text="${event.id == null ? 'Create New Event' : 'Edit Event'}">Create Event</h1>
+
+                <div class="content-card">
+                    <div class="card-body">
+                        <form th:action="@{/admin/events}" th:object="${event}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="mb-3">
+                                <label for="title" class="form-label fw-bold">Event Title</label>
+                                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label fw-bold">Description</label>
+                                <textarea class="form-control" id="description" th:field="*{description}" rows="4" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="eventDate" class="form-label fw-bold">Event Date</label>
+                                <input type="date" class="form-control" id="eventDate" th:field="*{eventDate}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="imageFile" class="form-label fw-bold">Event Image</label>
+                                <input class="form-control" type="file" id="imageFile" name="imageFile" accept="image/*">
+                                <div th:if="${event.imageUrl}" class="mt-2">
+                                    <p class="mb-1 text-muted small">Current image:</p>
+                                    <img th:src="@{${event.imageUrl}}" alt="Event Image Preview" class="img-thumbnail" style="max-height: 150px;">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary-custom me-2">
+                                    <i class="fas fa-save me-1"></i> Save Event
+                                </button>
+                                <a th:href="@{/admin/events}"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

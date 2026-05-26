@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notice Board - Techno Main</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+  <header class="page-header">
+    <h1>Notice Board</h1>
+    <p>Important announcements and college notices</p>
+  </header>
+
+  <section class="section bg-light">
+    <div th:if="${#lists.isEmpty(notices)}" style="text-align: center; color: var(--text-light); padding: 3rem;">
+        <i class="fas fa-bullhorn" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h3>No notices right now.</h3>
+    </div>
+
+    <div class="course-grid">
+      <div th:each="notice : ${notices}" class="course-card">
+        <div class="course-header" th:style="${notice.category.name() == 'EXAM'} ? 'background-color: var(--primary-dark);' : 'background-color: var(--primary-color);'">
+          <div style="display: flex; justify-content: space-between;">
+             <span th:text="${notice.category}">Category</span>
+             <small th:text="${notice.publishDate}">Date</small>
+          </div>
+          <h3 th:text="${notice.title}" style="margin-top: 5px;">Title</h3>
+        </div>
+        <div class="course-body">
+          <p th:text="${notice.description}">Description</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

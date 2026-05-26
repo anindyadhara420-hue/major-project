@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${page.title != null ? page.title : 'Placement Cell'}">Placement Cell</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+  <header class="page-header" style="padding: 2rem 5%; text-align: left;">
+    <div class="container" style="max-width: var(--max-width); margin: 0 auto;">
+      <h1 th:text="${page.title != null ? page.title : 'Placement Cell'}">Placement Cell</h1>
+    </div>
+  </header>
+
+  <section class="section" style="padding: 3rem 5%; min-height: 50vh;">
+    <div class="container" style="max-width: var(--max-width); margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
+      
+      <div th:if="${page.description != null}" style="font-size: 1.1rem; color: var(--text-dark);">
+        <p th:text="${page.description}"></p>
+      </div>
+      
+      <div th:if="${page.detailedContent != null}" style="line-height: 1.8;" th:utext="${page.detailedContent}">
+      </div>
+      
+      <div th:if="${page.imageUrl != null}" style="text-align: center; margin: 2rem 0;">
+        <img th:src="@{${page.imageUrl}}" alt="Placement" style="max-width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-md);">
+      </div>
+
+      <div th:if="${page.documentUrl != null}" style="margin-top: 2rem;">
+        <a th:href="@{${page.documentUrl}}" download="PLACEMENT_DATA" class="hero-btn" target="_blank" style="display: inline-flex; align-items: center; gap: 10px;">
+          <i class="fas fa-download"></i> PLACEMENT DATA
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

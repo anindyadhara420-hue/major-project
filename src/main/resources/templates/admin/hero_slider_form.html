@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <div id="page-content-wrapper">
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+                <div class="mb-4 d-flex align-items-center">
+                    <a th:href="@{/admin/hero-sliders}" class="btn btn-outline-secondary rounded-circle me-3" title="Back">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1 class="h3 fw-bold text-dark mb-0" th:text="${slider.id != null ? 'Edit Hero Slider' : 'Add New Hero Slider'}">Hero Slider</h1>
+                        <p class="text-muted mb-0">Fill in the details below</p>
+                    </div>
+                </div>
+
+                <div class="content-card max-w-800">
+                    <div class="card-body p-4">
+                        <form th:action="@{/admin/hero-sliders}" th:object="${slider}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}" />
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Title (Optional)</label>
+                                    <input type="text" class="form-control bg-light" th:field="*{title}" placeholder="Main heading text" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Subtitle (Optional)</label>
+                                    <input type="text" class="form-control bg-light" th:field="*{subtitle}" placeholder="Secondary text" />
+                                </div>
+                            </div>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Display Order</label>
+                                    <input type="number" class="form-control bg-light" th:field="*{displayOrder}" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Status</label>
+                                    <select class="form-select bg-light" th:field="*{isActive}">
+                                        <option th:value="true">Active</option>
+                                        <option th:value="false">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Slider Image <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control bg-light" name="imageFile" accept="image/*" th:required="${slider.id == null}" />
+                                <div class="form-text mt-2">Recommended resolution: 1920x1080px (Landscape format). Maximum size 5MB.</div>
+                                <div th:if="${slider.imageUrl}" class="mt-3 p-3 bg-light rounded border">
+                                    <p class="mb-2 fw-bold small text-muted">Current Image:</p>
+                                    <img th:src="@{${slider.imageUrl}}" alt="Current Image" style="max-height: 200px; max-width: 100%; object-fit: contain; border-radius: 4px;" />
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                                <a th:href="@{/admin/hero-sliders}" class="btn btn-light px-4 rounded-pill">Cancel</a>
+                                <button type="submit" class="btn btn-primary px-4 rounded-pill">
+                                    <i class="fas fa-save me-2"></i>Save Slider
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+</html>

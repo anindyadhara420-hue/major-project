@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <h1 class="h3 mb-4 fw-bold text-dark">Upload Gallery Images</h1>
+
+                <div class="content-card">
+                    <div class="card-body">
+                        <form th:action="@{/admin/gallery}" th:object="${galleryImage}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="categoryOrEvent" class="form-label fw-bold">Category or Event Name</label>
+                                <input type="text" class="form-control" id="categoryOrEvent" th:field="*{categoryOrEvent}" required placeholder="e.g. Annual Fest 2026">
+                            </div>
+                            <div class="mb-3">
+                                <label for="imageFiles" class="form-label fw-bold">Select Images</label>
+                                <input class="form-control" type="file" id="imageFiles" name="imageFiles" accept="image/*" multiple required>
+                                <p class="mb-1 text-muted small mt-1">You can select multiple images at once.</p>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary-custom me-2">
+                                    <i class="fas fa-upload me-1"></i> Upload Images
+                                </button>
+                                <a th:href="@{/admin/gallery}"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

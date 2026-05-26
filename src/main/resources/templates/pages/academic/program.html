@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${page.title != null ? page.title : 'Academic Program'} + ' - Techno Main Salt Lake'">Academic
+        Program</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <header class="page-header"
+        th:style="${page.imageUrl != null ? 'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(''' + page.imageUrl + '''); background-size: cover; background-position: center;' : 'background: var(--primary-color);'}">
+        <h1 th:text="${page.title != null ? page.title : 'Academic Programs'}">Academic Programs</h1>
+        <p
+            th:text="${page.description != null ? page.description : 'Explore our diverse range of engineering and management courses.'}">
+            Excellence in every stream.</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div th:if="${page.detailedContent != null}" th:utext="${page.detailedContent}" class="dynamic-content">
+            </div>
+            <div th:unless="${page.detailedContent != null}" class="default-content">
+                <h2>Our Curriculum</h2>
+                <p>Techno Main Salt Lake offers a wide spectrum of undergraduate and postgraduate programs. Our
+                    curriculum is designed to meet the evolving needs of the industry and society.</p>
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-card">
+                            <h4>B.Tech</h4>
+                            <p>CS, IT, ECE, EE, ME, CE, etc.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-card">
+                            <h4>M.Tech</h4>
+                            <p>Specialized postgraduate engineering.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-card">
+                            <h4>Management</h4>
+                            <p>MBA, BBA, etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

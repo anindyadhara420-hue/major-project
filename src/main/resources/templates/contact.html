@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Techno Main</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-info {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-info h3 { color: var(--primary-dark); margin-bottom: 1.5rem; }
+    .info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .info-item i { color: var(--primary-color); font-size: 1.5rem; }
+    
+    .contact-form {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: inherit;
+    }
+    .submit-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover { background: var(--primary-dark); }
+    .alert-success { background: #d1e7dd; color: #0f5132; padding: 1rem; border-radius: var(--radius); margin-bottom: 2rem; text-align: center; }
+
+    @media (max-width: 768px) {
+      .contact-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+  <header class="page-header">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you</p>
+  </header>
+
+  <section class="section bg-light">
+    <div th:if="${successMessage}" class="alert-success" th:text="${successMessage}">Success!</div>
+
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Get In Touch</h3>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Our Address</strong>
+            <p style="color: var(--text-light); margin-top: 5px;">123 College Avenue, Tech City, ST 12345</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <strong>Call Us</strong>
+            <p style="color: var(--text-light); margin-top: 5px;">+1 (123) 456-7890</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email Us</strong>
+            <p style="color: var(--text-light); margin-top: 5px;">info@technomain.edu</p>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem; border-radius: var(--radius); overflow: hidden; height: 250px;">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117925.21689650384!2d88.26495094999999!3d22.53556485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3 style="color: var(--primary-dark); margin-bottom: 1.5rem;">Send a Message</h3>
+        <form th:action="@{/contact/submit}" th:object="${contactMessage}" method="post">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" th:field="*{name}" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" th:field="*{email}" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" th:field="*{message}" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

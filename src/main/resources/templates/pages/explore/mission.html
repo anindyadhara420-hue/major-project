@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${page.title != null ? page.title : 'Mission & Vision'} + ' - Techno Main Salt Lake'">Mission &
+        Vision</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <header class="page-header"
+        th:style="${page.imageUrl != null ? 'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(''' + page.imageUrl + '''); background-size: cover; background-position: center;' : 'background: var(--primary-color);'}">
+        <h1 th:text="${page.title != null ? page.title : 'Mission & Vision'}">Mission & Vision</h1>
+        <p th:text="${page.description != null ? page.description : 'Our commitment to excellence in education.'}">
+            Shaping the future.</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div th:if="${page.detailedContent != null}" th:utext="${page.detailedContent}" class="dynamic-content">
+            </div>
+            <div th:unless="${page.detailedContent != null}" class="default-content">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card h-100">
+                            <h3><i class="fas fa-eye me-2 text-primary"></i>Our Vision</h3>
+                            <p>To be a widely recognized center of excellence for its contribution to technical
+                                education and research in the national and international level.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card h-100">
+                            <h3><i class="fas fa-bullseye me-2 text-primary"></i>Our Mission</h3>
+                            <p>To produce industry-ready professionals with ethical values and a commitment to society.
+                                To foster a culture of research and innovation among faculty and students.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

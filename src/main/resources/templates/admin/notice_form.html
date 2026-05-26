@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <h1 class="h3 mb-4 fw-bold text-dark"
+                    th:text="${notice.id == null ? 'Create New Notice' : 'Edit Notice'}">Create Notice</h1>
+
+                <div class="content-card">
+                    <div class="card-body">
+                        <form th:action="@{/admin/notices}" th:object="${notice}" method="post">
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="mb-3">
+                                <label for="title" class="form-label fw-bold">Title</label>
+                                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label fw-bold">Category</label>
+                                <select class="form-select" id="category" th:field="*{category}" required>
+                                    <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label fw-bold">Description</label>
+                                <textarea class="form-control" id="description" th:field="*{description}" rows="4" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="publishDate" class="form-label fw-bold">Publish Date (Optional)</label>
+                                <input type="date" class="form-control" id="publishDate" th:field="*{publishDate}">
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary-custom me-2">
+                                    <i class="fas fa-save me-1"></i> Save Notice
+                                </button>
+                                <a th:href="@{/admin/notices}"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

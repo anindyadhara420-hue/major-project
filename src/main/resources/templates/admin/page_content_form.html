@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <h1 class="h3 mb-4 fw-bold text-dark" th:text="${page.id == null ? 'Create New Page' : 'Edit Page'}">
+                    Create Page</h1>
+
+                <div class="content-card">
+                    <div class="card-body">
+                        <form th:action="@{/admin/pages}" th:object="${page}" method="post"
+                            enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}" />
+
+                            <!-- Category and Slug Section -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="category" class="form-label fw-bold">Category</label>
+                                    <!-- Editable only if NEW and NOT pre-filled -->
+                                    <select th:if="${page.id == null and page.category == null}" class="form-select"
+                                        id="category" th:field="*{category}" required>
+                                        <option value="">Select Category</option>
+                                        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}">
+                                        </option>
+                                    </select>
+                                    <!-- Read-only if EDIT or pre-filled -->
+                                    <div th:if="${page.id != null or page.category != null}">
+                                        <input type="text" class="form-control bg-light" th:value="${page.category}"
+                                            readonly />
+                                        <input type="hidden" th:field="*{category}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="slug" class="form-label fw-bold">Slug (URL identifier)</label>
+                                    <!-- Editable only if NEW and NOT pre-filled -->
+                                    <input th:if="${page.id == null and page.slug == null}" type="text"
+                                        class="form-control" id="slug" th:field="*{slug}" required
+                                        placeholder="e.g. mission-vision">
+                                    <!-- Read-only if EDIT or pre-filled -->
+                                    <div th:if="${page.id != null or page.slug != null}">
+                                        <input type="text" class="form-control bg-light" th:value="${page.slug}"
+                                            readonly />
+                                        <input type="hidden" th:field="*{slug}" />
+                                    </div>
+                                    <div th:if="${page.id == null and page.slug == null}" class="form-text">Unique
+                                        identifier used in URL.</div>
+                                </div>
+                            </div>
+
+                            <!-- Context Alert for NEW pages from sidebar -->
+                            <div th:if="${page.id == null and page.category != null and page.slug != null}"
+                                class="alert alert-info py-2 small mb-4">
+                                <i class="fas fa-info-circle me-1"></i> Creating dynamic content for:
+                                <strong th:text="${page.category}"></strong> / <strong th:text="${page.slug}"></strong>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label fw-bold">Page Title</label>
+                                <input type="text" class="form-control" id="title" th:field="*{title}" required
+                                    placeholder="e.g. Mission & Vision">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imageFile" class="form-label fw-bold">Hero Image</label>
+                                <input type="file" class="form-control" id="imageFile" name="imageFile"
+                                    accept="image/*">
+                                <input type="hidden" th:field="*{imageUrl}" />
+                                <div th:if="${page.imageUrl != null}" class="mt-2 text-muted">
+                                    Current Image: <span th:text="${page.imageUrl}"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="documentFile" class="form-label fw-bold">Document (PDF/Doc) Optional</label>
+                                <input type="file" class="form-control" id="documentFile" name="documentFile"
+                                    accept=".pdf,.doc,.docx">
+                                <input type="hidden" th:field="*{documentUrl}" />
+                                <div th:if="${page.documentUrl != null}" class="mt-2 text-muted">
+                                    Current Document: <a th:href="@{${page.documentUrl}}" target="_blank">View Document</a>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label fw-bold">Brief Description</label>
+                                <textarea class="form-control" id="description" th:field="*{description}" rows="3"
+                                    placeholder="A short summary of the page content"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="detailedContent" class="form-label fw-bold">Detailed Content (HTML
+                                    support)</label>
+                                <textarea class="form-control" id="detailedContent" th:field="*{detailedContent}"
+                                    rows="10" placeholder="Use HTML tags for formatting if needed"></textarea>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary-custom me-2">
+                                    <i class="fas fa-save me-1"></i> Save Page
+                                </button>
+                                <a th:href="@{/admin/pages}"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

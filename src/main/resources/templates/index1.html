@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Techno Main Salt Lake</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="Main nav">
+    <div class="nav-left">
+      <img id="logo" src="assets/images/logo.png" alt="Logo" class="logo">
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <ul id="main-menu" class="nav-links" role="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <input id="search-input" type="search" placeholder="Search courses..." aria-label="Search courses">
+      <button id="theme-toggle" class="theme-btn" aria-pressed="false" title="Toggle theme">Theme</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero" role="banner">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to Techno Main Salt Lake</h1>
+      <p>Empowering the next generation of leaders.</p>
+      <div class="hero-cta">
+        <a class="cta-button" href="#courses">Explore Programs</a>
+      </div>
+    </div>
+    <!-- decorative/random images (JS will populate) -->
+    <div id="hero-decor" class="hero-decor" aria-hidden="true"></div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <section id="courses" class="container">
+      <div class="section-head">
+        <h2>Our Popular Courses</h2>
+        <!-- Filter controls commented out as backend support is pending
+      <div class="controls">
+          <label for="filter">Filter:</label>
+          <select id="filter" aria-label="Filter courses">
+            <option value="all">All</option>
+            <option value="undergrad">Undergraduate</option>
+            <option value="postgrad">Postgraduate</option>
+            <option value="diploma">Diploma</option>
+          </select>
+        </div>
+      -->
+      </div>
+
+      <p class="muted">Browse our wide range of academic programs.</p>
+
+      <div id="course-grid" class="course-grid" aria-live="polite">
+        <!-- Dynamic Content -->
+        <div th:each="degree : ${degrees}" class="course-card"
+          style="padding: 20px; border: 1px solid #ddd; margin-bottom: 20px; display: block; text-decoration: none; color: inherit;">
+          <h3 th:text="${degree.name}" style="margin-top: 0;">Degree Name</h3>
+          <hr>
+          <div th:if="${#lists.isEmpty(degree.courses)}">
+            <p>No courses added yet.</p>
+          </div>
+          <ul th:if="${!#lists.isEmpty(degree.courses)}" style="text-align: left;">
+            <li th:each="course : ${degree.courses}">
+              <strong th:text="${course.name}">Course Name</strong>
+              <span th:if="${course.description != null}" th:text="' - ' + ${course.description}"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container small">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:info@technomain.edu">info@technomain.edu</a></p>
+      <p>Address: Salt Lake, Kolkata</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Techno Main Salt Lake. All rights reserved.</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/scripts.js" defer></script>
+</body>
+
+</html>

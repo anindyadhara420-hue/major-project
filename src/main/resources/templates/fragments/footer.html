@@ -1,0 +1,28 @@
+<footer th:fragment="footer">
+  <div class="footer-content">
+    <div class="footer-col">
+      <h4>Techno Main</h4>
+      <p th:text="${siteSetting != null ? siteSetting.aboutText : 'Empowering students to achieve their dreams through quality education.'}"></p>
+    </div>
+    <div class="footer-col" ><!--style="white-space: pre-wrap;"-->
+      <h4>Contact Us</h4>
+      <p style="margin-bottom: 5px;"><i class="fas fa-map-marker-alt me-2"></i> <span th:text="${siteSetting != null ? siteSetting.address : 'Salt Lake City, Sector V'}"></span></p>
+      <p style="margin-bottom: 5px;"><i class="fas fa-phone-alt me-2"></i> <span th:text="${siteSetting != null ? siteSetting.phone : '+91 (123) 456-7890'}"></span></p>
+      <p style="margin-bottom: 5px;"><i class="fas fa-envelope me-2"></i> <span th:text="${siteSetting != null ? siteSetting.email : 'info@technomain.edu'}"></span></p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/about}">About Us</a></li>
+        <li><a th:href="@{/notices}">Notice Board</a></li>
+        <li><a th:href="@{/events}">Events</a></li>
+        <li><a th:href="@{/gallery}">Gallery</a></li>
+        <li><a th:href="@{/contact}">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright text-center py-3 border-top border-light opacity-75">
+    <p class="mb-0" th:text="${siteSetting != null ? siteSetting.copyrightText : '© 2024 Techno Main Salt Lake. All Rights Reserved.'}"></p>
+  </div>
+</footer>

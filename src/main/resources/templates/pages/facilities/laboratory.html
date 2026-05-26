@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${page.title != null ? page.title : 'Laboratories'} + ' - Techno Main Salt Lake'">Laboratories
+    </title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <header class="page-header"
+        th:style="${page.imageUrl != null ? 'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(''' + page.imageUrl + '''); background-size: cover; background-position: center;' : 'background: var(--primary-color);'}">
+        <h1 th:text="${page.title != null ? page.title : 'State-of-the-art Labs'}">State-of-the-art Labs</h1>
+        <p
+            th:text="${page.description != null ? page.description : 'Practical learning with modern equipment and expert guidance.'}">
+            Where theory meets practice.</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div th:if="${page.detailedContent != null}" th:utext="${page.detailedContent}" class="dynamic-content">
+            </div>
+            <div th:unless="${page.detailedContent != null}" class="default-content">
+                <h2>Our Lab Facilities</h2>
+                <p>We pride ourselves on our modern laboratories, which are equipped with the latest technology and
+                    tools. Each department has dedicated labs for research and curriculum-based experiments.</p>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card">
+                            <h4>Computing Labs</h4>
+                            <p>High-end workstations with the latest software development tools.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card">
+                            <h4>Hardware Labs</h4>
+                            <p>Specialized equipment for ECE, EE, and Mechanical engineering.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

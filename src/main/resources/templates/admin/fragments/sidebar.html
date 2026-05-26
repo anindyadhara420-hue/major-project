@@ -1,0 +1,148 @@
+<div th:fragment="sidebar" id="sidebar-wrapper">
+    <div class="sidebar-brand">
+        <img th:src="@{/assets/images/logo.png}" alt="CMS"
+            style="height: 35px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 5px;">
+    </div>
+    <div class="list-group list-group-flush">
+        <a th:href="@{/admin}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold">
+            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+
+        <!-- Academic Setup Group -->
+        <a href="#academicSetupSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle mt-2">
+            <i class="fas fa-university me-2"></i>Academic Setup
+        </a>
+        <div class="collapse px-3" id="academicSetupSubmenu">
+            <a th:href="@{/admin/degrees}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Degrees
+            </a>
+            <a th:href="@{/admin/courses}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Courses
+            </a>
+        </div>
+
+        <!-- Explore Group -->
+        <a href="#exploreSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle mt-2">
+            <i class="fas fa-search me-2"></i>Explore
+        </a>
+        <div class="collapse show px-3" id="exploreSubmenu">
+            <a th:href="@{/admin/pages/edit-by-slug/experience(category='EXPLORE')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                The Experience
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/mission-vision(category='EXPLORE')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Mission & Vision
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/faculty(category='EXPLORE')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Faculty
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/placement(category='PLACEMENT')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Placement
+            </a>
+        </div>
+
+        <!-- Academic Group -->
+        <a href="#academicSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle">
+            <i class="fas fa-book me-2"></i>Academic
+        </a>
+        <div class="collapse px-3" id="academicSubmenu">
+            <a th:href="@{/admin/pages/edit-by-slug/academic-program(category='ACADEMIC')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Academic Program
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/interactive-learning(category='ACADEMIC')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Interactive Learning
+            </a>
+        </div>
+
+        <!-- Facilities Group -->
+        <a href="#facilitiesSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle">
+            <i class="fas fa-building me-2"></i>Facilities
+        </a>
+        <div class="collapse px-3" id="facilitiesSubmenu">
+            <a th:href="@{/admin/pages/edit-by-slug/libraries(category='FACILITIES')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Libraries
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/laboratory(category='FACILITIES')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Laboratory
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/smart-class(category='FACILITIES')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Smart Class
+            </a>
+            <a th:href="@{/admin/pages/edit-by-slug/soft-skills(category='FACILITIES')}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Soft Skill Development
+            </a>
+        </div>
+
+        <!-- Modules Group -->
+        <a href="#modulesSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle mt-2">
+            <i class="fas fa-boxes me-2"></i>Website Modules
+        </a>
+        <div class="collapse px-3" id="modulesSubmenu">
+            <a th:href="@{/admin/hero-sliders}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Hero Sliders
+            </a>
+            <a th:href="@{/admin/notices}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Notice Board
+            </a>
+            <a th:href="@{/admin/events}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Events
+            </a>
+            <a th:href="@{/admin/gallery}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Gallery
+            </a>
+            <a th:href="@{/admin/contact-messages}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Contact Messages
+            </a>
+            <a th:href="@{/admin/admissions}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Admissions
+            </a>
+        </div>
+
+        <!-- Administration Group -->
+        <a href="#adminSubmenu" data-bs-toggle="collapse"
+            class="list-group-item list-group-item-action bg-transparent text-white border-0 dropdown-toggle mt-3">
+            <i class="fas fa-tools me-2"></i>Administration
+        </a>
+        <div class="collapse px-3" id="adminSubmenu">
+            <a th:href="@{/admin/users}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Admin Users
+            </a>
+            <a th:href="@{/admin/pages}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                View All Pages
+            </a>
+            <a th:href="@{/admin/settings}"
+                class="list-group-item list-group-item-action bg-transparent text-white border-0 small ms-2 py-1">
+                Site Settings
+            </a>
+        </div>
+
+        <a th:href="@{/}" target="_blank"
+            class="list-group-item list-group-item-action mt-4 border-0 bg-transparent text-white small opacity-75">
+            <i class="fas fa-globe me-2"></i>View Public Site
+        </a>
+    </div>
+</div>

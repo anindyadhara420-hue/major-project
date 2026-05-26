@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <h1 class="h3 mb-4 fw-bold text-dark"
+                    th:text="${degree.id == null ? 'Create New Degree' : 'Edit Degree'}">Create Degree</h1>
+
+                <div class="content-card">
+                    <div class="card-body">
+                        <form th:action="@{/admin/degrees}" th:object="${degree}" method="post">
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="mb-3">
+                                <label for="name" class="form-label fw-bold">Degree Name</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}" required
+                                    placeholder="e.g. Bachelor of Technology">
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary-custom me-2">
+                                    <i class="fas fa-save me-1"></i> Save Degree
+                                </button>
+                                <a th:href="@{/admin/degrees}"
+                                    class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

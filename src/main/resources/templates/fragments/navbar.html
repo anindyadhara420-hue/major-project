@@ -1,0 +1,44 @@
+<nav th:fragment="navbar" class="navbar">
+	<a th:href="@{/}" class="logo">
+		<img th:src="@{/assets/images/logoTec.png}" alt="Techno Main" style="height: 40px;">
+	</a>
+	<ul class="nav-links">
+		<li><a th:href="@{/}">Home</a>
+		</li>
+		<li class="dropdown">
+			<a href="#">Explore <i class="fas fa-chevron-down small"></i></a>
+			<ul class="dropdown-menu">
+
+				<li><a th:href="@{/about}">About</a></li>
+				<li><a th:href="@{/explore/experience}">The Experience</a></li>
+				<li><a th:href="@{/notices}">Notices</a></li>
+				<li><a th:href="@{/events}">Events</a></li>
+				<li><a th:href="@{/gallery}">Gallery</a></li>
+				<li><a th:href="@{/contact}">Contact Us</a></li>
+				<li><a th:href="@{/explore/mission-vision}">Mission & Vision</a></li>
+				<li><a th:href="@{/explore/faculty}">Faculty</a></li>
+
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a href="#">Academic <i class="fas fa-chevron-down small"></i></a>
+			<ul class="dropdown-menu">
+				<li><a th:href="@{/academic/program}">Academic Program</a></li>
+				<li><a th:href="@{/academic/interactive-learning}">Interactive Learning</a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a href="#">Facilities <i class="fas fa-chevron-down small"></i></a>
+			<ul class="dropdown-menu">
+				<li><a th:href="@{/facilities/libraries}">Libraries</a></li>
+				<li><a th:href="@{/facilities/laboratory}">Laboratory</a></li>
+				<li><a th:href="@{/facilities/smart-class}">Smart Class</a></li>
+				<li><a th:href="@{/facilities/soft-skills}">Soft Skill Development</a></li>
+			</ul>
+		</li>
+		<li><a th:href="@{/admissions}">Admissions</a></li>
+		<li><a th:href="@{/placement}">Placement</a></li>
+
+		<li><a th:href="@{/login}" class="nav-cta" target="_blank">Admin Login</a></li>
+	</ul>
+</nav>

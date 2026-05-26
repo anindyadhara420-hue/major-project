@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h1 class="h3 fw-bold text-dark">Gallery Images</h1>
+                        <p class="text-muted mb-0">Manage images for the gallery</p>
+                    </div>
+                    <a th:href="@{/admin/gallery/new}" class="btn btn-primary-custom">
+                        <i class="fas fa-plus me-2"></i> Upload New Images
+                    </a>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">ID</th>
+                                        <th>Image Preview</th>
+                                        <th>Category/Event</th>
+                                        <th class="text-end pe-4">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="image : ${images}">
+                                        <td class="ps-4 fw-bold text-secondary" th:text="'#' + ${image.id}">#1</td>
+                                        <td>
+                                            <img th:if="${image.imageUrl}" th:src="@{${image.imageUrl}}" alt="Gallery Image" style="width: 80px; height: 80px; object-fit: cover;" class="rounded">
+                                        </td>
+                                        <td class="fw-bold text-dark" th:text="${image.categoryOrEvent}">Category</td>
+                                        <td class="text-end pe-4">
+                                            <a th:href="@{/admin/gallery/delete/{id}(id=${image.id})}"
+                                                class="btn btn-sm btn-outline-danger rounded-circle"
+                                                onclick="return confirm('Are you sure?')" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div th:if="${#lists.isEmpty(images)}" class="text-center p-5">
+                                <div class="mb-3">
+                                    <i class="fas fa-images fa-3x text-muted opacity-50"></i>
+                                </div>
+                                <h5 class="text-muted">No images found</h5>
+                                <p class="text-muted small">Get started by uploading new images.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

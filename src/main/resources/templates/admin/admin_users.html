@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head :: head}"></head>
+<body>
+    <div class="d-flex toggled" id="wrapper">
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+        <div id="page-content-wrapper">
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+            <div class="container-fluid px-4 py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0 fw-bold text-dark">Admin Users</h1>
+                    <a th:href="@{/admin/users/new}" class="btn btn-primary-custom rounded-pill">
+                        <i class="fas fa-plus me-1"></i> Add New Admin
+                    </a>
+                </div>
+                
+                <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${errorMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">ID</th>
+                                        <th>Username</th>
+                                        <th>Status</th>
+                                        <th class="text-end pe-4">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="user : ${users}">
+                                        <td class="ps-4" th:text="${user.id}"></td>
+                                        <td th:text="${user.username}" class="fw-medium"></td>
+                                        <td>
+                                            <span th:if="${user.enabled}" class="badge bg-success">Active</span>
+                                            <span th:unless="${user.enabled}" class="badge bg-danger">Disabled</span>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="btn btn-sm btn-outline-primary rounded-circle me-1" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" class="btn btn-sm btn-outline-danger rounded-circle" title="Delete" onclick="return confirm('Are you sure you want to delete this admin user?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${users.empty}">
+                                        <td colspan="4" class="text-center py-4 text-muted">No admin users found.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+</html>

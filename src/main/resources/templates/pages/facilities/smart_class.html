@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${page.title != null ? page.title : 'Smart Classrooms'} + ' - Techno Main Salt Lake'">Smart Class
+    </title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <header class="page-header"
+        th:style="${page.imageUrl != null ? 'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(''' + page.imageUrl + '''); background-size: cover; background-position: center;' : 'background: var(--primary-color);'}">
+        <h1 th:text="${page.title != null ? page.title : 'Smart Classrooms'}">Smart Classrooms</h1>
+        <p
+            th:text="${page.description != null ? page.description : 'Next-generation learning spaces equipped with modern AV technology.'}">
+            Learning enhanced by technology.</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div th:if="${page.detailedContent != null}" th:utext="${page.detailedContent}" class="dynamic-content">
+            </div>
+            <div th:unless="${page.detailedContent != null}" class="default-content">
+                <h2>Interactive Learning Spaces</h2>
+                <p>Our classrooms are designed to facilitate interactive and collaborative learning. With the
+                    integration of smart boards and audio-visual aids, education becomes an immersive experience.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-projector feature-icon"></i>
+                        <h3>AV Integration</h3>
+                        <p>High-quality projectors and sound systems in every room.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chalkboard feature-icon"></i>
+                        <h3>Smart Boards</h3>
+                        <p>Interactive touch-enabled boards for dynamic teaching.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

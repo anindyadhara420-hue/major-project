@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${page.title != null ? page.title : 'The Experience'} + ' - Techno Main Salt Lake'">The Experience
+    </title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+    <header class="page-header"
+        th:style="${page.imageUrl != null ? 'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(''' + page.imageUrl + '''); background-size: cover; background-position: center;' : 'background: var(--primary-color);'}">
+        <h1 th:text="${page.title != null ? page.title : 'The Experience'}">The Experience</h1>
+        <p
+            th:text="${page.description != null ? page.description : 'A glimpse into the life at Techno Main Salt Lake.'}">
+            Experience the excellence.</p>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div th:if="${page.detailedContent != null}" th:utext="${page.detailedContent}" class="dynamic-content">
+            </div>
+            <div th:unless="${page.detailedContent != null}" class="default-content">
+                <h2>Welcome to Techno Main</h2>
+                <p>Techno Main Salt Lake provides a holistic environment for students to grow academically and
+                    personally. Our campus is a hub of innovation, culture, and learning.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-users-cog feature-icon"></i>
+                        <h3>Student Clubs</h3>
+                        <p>Join various technical and cultural clubs to hone your skills.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-laptop-code feature-icon"></i>
+                        <h3>Hackathons</h3>
+                        <p>Participate in regional and national level hackathons hosted on campus.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-music feature-icon"></i>
+                        <h3>Cultural Fests</h3>
+                        <p>Experience the joy of our annual cultural festival - Vivarta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

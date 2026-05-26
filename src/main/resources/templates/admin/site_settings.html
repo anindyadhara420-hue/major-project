@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Site Settings - Admin Panel</title>
+    <div th:replace="~{admin/fragments/head :: head}"></div>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+        <div id="page-content-wrapper" class="w-100 bg-light">
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+            <div class="container-fluid p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h3 mb-0 text-gray-800">Global Site Settings</h2>
+                </div>
+
+                <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong th:text="${successMessage}">Success!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Edit Footer & Contact Information</h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/admin/settings/save}" th:object="${siteSetting}" method="post">
+                            <input type="hidden" th:field="*{id}" />
+
+                            <div class="mb-3">
+                                <label for="aboutText" class="form-label">About Text (Footer)</label>
+                                <textarea class="form-control" id="aboutText" th:field="*{aboutText}" rows="3" required></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" th:field="*{address}" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone" th:field="*{phone}" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="copyrightText" class="form-label">Copyright Text</label>
+                                    <input type="text" class="form-control" id="copyrightText" th:field="*{copyrightText}" required>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Save Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+</html>

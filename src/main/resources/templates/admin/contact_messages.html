@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/head :: head}"></head>
+
+<body>
+
+    <div class="d-flex toggled" id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="~{admin/fragments/sidebar :: sidebar}"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav th:replace="~{admin/fragments/topbar :: navbar}"></nav>
+
+            <div class="container-fluid px-4 py-4">
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h1 class="h3 fw-bold text-dark">Contact Messages</h1>
+                        <p class="text-muted mb-0">View messages submitted through the contact form</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Date</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Message</th>
+                                        <th class="text-end pe-4">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="msg : ${messages}">
+                                        <td class="ps-4" th:text="${msg.submissionDate}">2026-01-01 12:00</td>
+                                        <td class="fw-bold text-dark" th:text="${msg.name}">John Doe</td>
+                                        <td th:text="${msg.email}">john@example.com</td>
+                                        <td th:text="${msg.message}" style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Message content...</td>
+                                        <td class="text-end pe-4">
+                                            <!-- Optionally, a view button if a modal is needed later -->
+                                            <a th:href="@{/admin/contact-messages/delete/{id}(id=${msg.id})}"
+                                                class="btn btn-sm btn-outline-danger rounded-circle"
+                                                onclick="return confirm('Are you sure?')" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div th:if="${#lists.isEmpty(messages)}" class="text-center p-5">
+                                <div class="mb-3">
+                                    <i class="fas fa-envelope fa-3x text-muted opacity-50"></i>
+                                </div>
+                                <h5 class="text-muted">No messages found</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{admin/fragments/footer :: footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<div th:fragment="footer">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        if (toggleButton) {
+            toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentPath = window.location.pathname + window.location.search;
+            var sidebarLinks = Array.from(document.querySelectorAll('#sidebar-wrapper a.list-group-item'));
+            
+            var matches = [];
+
+            sidebarLinks.forEach(function(link) {
+                var href = link.getAttribute('href');
+
+                if (href === '/admin') {
+                    if (currentPath === '/admin' || currentPath === '/admin/') {
+                        matches.push(link);
+                    }
+                } else if (href && href !== '#') {
+                    if (currentPath === href || currentPath.startsWith(href + '/') || currentPath.startsWith(href + '?')) {
+                        matches.push(link);
+                    }
+                }
+            });
+
+            if (matches.length > 0) {
+                // Sort by length descending to get the most specific match
+                matches.sort(function(a, b) {
+                    return b.getAttribute('href').length - a.getAttribute('href').length;
+                });
+                
+                var link = matches[0];
+
+                // Highlight the active link
+                link.classList.remove('bg-transparent', 'opacity-75', 'text-white');
+                link.style.backgroundColor = '#ffffff';
+                link.style.color = '#D7001C'; // Theme red
+                link.style.fontWeight = 'bold';
+                link.style.borderRadius = '5px';
+                link.style.margin = '2px 10px';
+
+                // Check if it's inside a submenu
+                var parentCollapse = link.closest('.collapse');
+                if (parentCollapse) {
+                    parentCollapse.classList.add('show'); // Expand the submenu
+                    
+                    // Highlight the parent toggle slightly
+                    var toggleBtn = document.querySelector('[href="#' + parentCollapse.id + '"]');
+                    if (toggleBtn) {
+                        toggleBtn.classList.remove('opacity-75');
+                        toggleBtn.style.borderLeft = "4px solid #ffffff";
+                        toggleBtn.style.fontWeight = "bold";
+                    }
+                }
+            }
+        });
+    </script>
+</div>
