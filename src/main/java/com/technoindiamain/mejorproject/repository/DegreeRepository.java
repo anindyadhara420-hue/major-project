@@ -7,4 +7,5 @@ import com.technoindiamain.mejorproject.entity.Degree;
 
 @Repository
 public interface DegreeRepository extends JpaRepository<Degree, Long> {
+
 }

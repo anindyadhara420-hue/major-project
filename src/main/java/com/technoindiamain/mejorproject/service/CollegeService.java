@@ -30,210 +30,214 @@ import com.technoindiamain.mejorproject.repository.AdmissionRepository;
 @Service
 public class CollegeService {
 
-    private final DegreeRepository degreeRepository;
-    private final CourseRepository courseRepository;
-    private final PageContentRepository pageContentRepository;
-    private final NoticeRepository noticeRepository;
-    private final EventRepository eventRepository;
-    private final GalleryImageRepository galleryImageRepository;
-    private final ContactMessageRepository contactMessageRepository;
-    private final SiteSettingRepository siteSettingRepository;
-    private final HeroSliderRepository heroSliderRepository;
-    private final AdmissionRepository admissionRepository;
+	private final DegreeRepository degreeRepository;
+	private final CourseRepository courseRepository;
+	private final PageContentRepository pageContentRepository;
+	private final NoticeRepository noticeRepository;
+	private final EventRepository eventRepository;
+	private final GalleryImageRepository galleryImageRepository;
+	private final ContactMessageRepository contactMessageRepository;
+	private final SiteSettingRepository siteSettingRepository;
+	private final HeroSliderRepository heroSliderRepository;
+	private final AdmissionRepository admissionRepository;
 
-    public CollegeService(DegreeRepository degreeRepository, CourseRepository courseRepository,
-            PageContentRepository pageContentRepository, NoticeRepository noticeRepository,
-            EventRepository eventRepository, GalleryImageRepository galleryImageRepository,
-            ContactMessageRepository contactMessageRepository, SiteSettingRepository siteSettingRepository,
-            HeroSliderRepository heroSliderRepository, AdmissionRepository admissionRepository) {
-        this.degreeRepository = degreeRepository;
-        this.courseRepository = courseRepository;
-        this.pageContentRepository = pageContentRepository;
-        this.noticeRepository = noticeRepository;
-        this.eventRepository = eventRepository;
-        this.galleryImageRepository = galleryImageRepository;
-        this.contactMessageRepository = contactMessageRepository;
-        this.siteSettingRepository = siteSettingRepository;
-        this.heroSliderRepository = heroSliderRepository;
-        this.admissionRepository = admissionRepository;
-    }
-    // Degree Operations
-    public List<Degree> getAllDegrees() {
-        return degreeRepository.findAll();
-    }
+	public CollegeService(DegreeRepository degreeRepository, CourseRepository courseRepository,
+			PageContentRepository pageContentRepository, NoticeRepository noticeRepository,
+			EventRepository eventRepository, GalleryImageRepository galleryImageRepository,
+			ContactMessageRepository contactMessageRepository, SiteSettingRepository siteSettingRepository,
+			HeroSliderRepository heroSliderRepository, AdmissionRepository admissionRepository) {
+		this.degreeRepository = degreeRepository;
+		this.courseRepository = courseRepository;
+		this.pageContentRepository = pageContentRepository;
+		this.noticeRepository = noticeRepository;
+		this.eventRepository = eventRepository;
+		this.galleryImageRepository = galleryImageRepository;
+		this.contactMessageRepository = contactMessageRepository;
+		this.siteSettingRepository = siteSettingRepository;
+		this.heroSliderRepository = heroSliderRepository;
+		this.admissionRepository = admissionRepository;
+	}
 
-    public Optional<Degree> getDegreeById(Long id) {
-        return degreeRepository.findById(id);
-    }
+	// Degree Operations
+	public List<Degree> getAllDegrees() {
+		return degreeRepository.findAll();
+	}
 
-    public void saveDegree(Degree degree) {
-        degreeRepository.save(degree);
-    }
+	public Optional<Degree> getDegreeById(Long id) {
+		return degreeRepository.findById(id);
+	}
 
-    public void deleteDegree(Long id) {
-        degreeRepository.deleteById(id);
-    }
+	public void saveDegree(Degree degree) {
+		degreeRepository.save(degree);
+	}
 
-    // Course Operations
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
-    }
+	public void deleteDegree(Long id) {
+		degreeRepository.deleteById(id);
+	}
 
-    public Optional<Course> getCourseById(Long id) {
-        return courseRepository.findById(id);
-    }
+	// Course Operations
+	public List<Course> getAllCourses() {
+		List<Course> courseList = courseRepository.findAll();
 
-    public void saveCourse(Course course) {
-        courseRepository.save(course);
-    }
+		for (Course course : courseList) {
+			course.setName(course.getName() + " ( " + course.getDegree().getName() + " )");
+		}
+		
+		return courseList;
 
-    public void deleteCourse(Long id) {
-        courseRepository.deleteById(id);
-    }
+	}
 
-    // PageContent Operations
-    public List<PageContent> getAllPageContents() {
-        return pageContentRepository.findAll();
-    }
+	public Optional<Course> getCourseById(Long id) {
+		return courseRepository.findById(id);
+	}
 
-    public List<PageContent> getPageContentsByCategory(PageContent.Category category) {
-        return pageContentRepository.findByCategory(category);
-    }
+	public void saveCourse(Course course) {
+		courseRepository.save(course);
+	}
 
-    public Optional<PageContent> getPageContentById(Long id) {
-        return pageContentRepository.findById(id);
-    }
+	public void deleteCourse(Long id) {
+		courseRepository.deleteById(id);
+	}
 
-    public Optional<PageContent> getPageContentBySlug(String slug) {
-        return pageContentRepository.findBySlug(slug);
-    }
+	// PageContent Operations
+	public List<PageContent> getAllPageContents() {
+		return pageContentRepository.findAll();
+	}
 
-    public Optional<PageContent> getPageContentByCategoryAndSlug(PageContent.Category category, String slug) {
-        return pageContentRepository.findByCategoryAndSlug(category, slug);
-    }
+	public List<PageContent> getPageContentsByCategory(PageContent.Category category) {
+		return pageContentRepository.findByCategory(category);
+	}
 
-    public void savePageContent(PageContent pageContent) {
-        pageContentRepository.save(pageContent);
-    }
+	public Optional<PageContent> getPageContentById(Long id) {
+		return pageContentRepository.findById(id);
+	}
 
-    public void deletePageContent(Long id) {
-        pageContentRepository.deleteById(id);
-    }
+	public Optional<PageContent> getPageContentBySlug(String slug) {
+		return pageContentRepository.findBySlug(slug);
+	}
 
-    // Notice Operations
-    public List<Notice> getAllNotices() {
-        return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "publishDate"));
-    }
+	public Optional<PageContent> getPageContentByCategoryAndSlug(PageContent.Category category, String slug) {
+		return pageContentRepository.findByCategoryAndSlug(category, slug);
+	}
 
-    public Optional<Notice> getNoticeById(Long id) {
-        return noticeRepository.findById(id);
-    }
+	public void savePageContent(PageContent pageContent) {
+		pageContentRepository.save(pageContent);
+	}
 
-    public void saveNotice(Notice notice) {
-        noticeRepository.save(notice);
-    }
+	public void deletePageContent(Long id) {
+		pageContentRepository.deleteById(id);
+	}
 
-    public void deleteNotice(Long id) {
-        noticeRepository.deleteById(id);
-    }
+	// Notice Operations
+	public List<Notice> getAllNotices() {
+		return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "publishDate"));
+	}
 
-    // Event Operations
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll(Sort.by(Sort.Direction.DESC, "eventDate"));
-    }
+	public Optional<Notice> getNoticeById(Long id) {
+		return noticeRepository.findById(id);
+	}
 
-    public Optional<Event> getEventById(Long id) {
-        return eventRepository.findById(id);
-    }
+	public void saveNotice(Notice notice) {
+		noticeRepository.save(notice);
+	}
 
-    public void saveEvent(Event event) {
-        eventRepository.save(event);
-    }
+	public void deleteNotice(Long id) {
+		noticeRepository.deleteById(id);
+	}
 
-    public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
-    }
+	// Event Operations
+	public List<Event> getAllEvents() {
+		return eventRepository.findAll(Sort.by(Sort.Direction.DESC, "eventDate"));
+	}
 
-    // GalleryImage Operations
-    public List<GalleryImage> getAllGalleryImages() {
-        return galleryImageRepository.findAll();
-    }
+	public Optional<Event> getEventById(Long id) {
+		return eventRepository.findById(id);
+	}
 
-    public Optional<GalleryImage> getGalleryImageById(Long id) {
-        return galleryImageRepository.findById(id);
-    }
+	public void saveEvent(Event event) {
+		eventRepository.save(event);
+	}
 
-    public void saveGalleryImage(GalleryImage galleryImage) {
-        galleryImageRepository.save(galleryImage);
-    }
+	public void deleteEvent(Long id) {
+		eventRepository.deleteById(id);
+	}
 
-    public void deleteGalleryImage(Long id) {
-        galleryImageRepository.deleteById(id);
-    }
+	// GalleryImage Operations
+	public List<GalleryImage> getAllGalleryImages() {
+		return galleryImageRepository.findAll();
+	}
 
-    // ContactMessage Operations
-    public List<ContactMessage> getAllContactMessages() {
-        return contactMessageRepository.findAll(Sort.by(Sort.Direction.DESC, "submissionDate"));
-    }
+	public Optional<GalleryImage> getGalleryImageById(Long id) {
+		return galleryImageRepository.findById(id);
+	}
 
-    public Optional<ContactMessage> getContactMessageById(Long id) {
-        return contactMessageRepository.findById(id);
-    }
+	public void saveGalleryImage(GalleryImage galleryImage) {
+		galleryImageRepository.save(galleryImage);
+	}
 
-    public void saveContactMessage(ContactMessage contactMessage) {
-        contactMessageRepository.save(contactMessage);
-    }
+	public void deleteGalleryImage(Long id) {
+		galleryImageRepository.deleteById(id);
+	}
 
-    public void deleteContactMessage(Long id) {
-        contactMessageRepository.deleteById(id);
-    }
+	// ContactMessage Operations
+	public List<ContactMessage> getAllContactMessages() {
+		return contactMessageRepository.findAll(Sort.by(Sort.Direction.DESC, "submissionDate"));
+	}
 
-    // SiteSetting Operations
-    public SiteSetting getSiteSetting() {
-        return siteSettingRepository.findById(1L).orElseGet(() -> {
-            SiteSetting defaultSettings = new SiteSetting(
-                "Techno Main is a premier core engineering institute.",
-                "Salt Lake City, Sector V, Kolkata, West Bengal", 
-                "+91 (123) 456-7890", 
-                "info@technomain.edu", 
-                "© 2024 Techno Main Salt Lake. All Rights Reserved."
-            );
-            return siteSettingRepository.save(defaultSettings);
-        });
-    }
+	public Optional<ContactMessage> getContactMessageById(Long id) {
+		return contactMessageRepository.findById(id);
+	}
 
-    public void saveSiteSetting(SiteSetting siteSetting) {
-        siteSetting.setId(1L); // Ensure ID is always 1
-        siteSettingRepository.save(siteSetting);
-    }
+	public void saveContactMessage(ContactMessage contactMessage) {
+		contactMessageRepository.save(contactMessage);
+	}
 
-    // HeroSlider Operations
-    public List<HeroSlider> getAllHeroSliders() {
-        return heroSliderRepository.findAllByOrderByDisplayOrderAsc();
-    }
+	public void deleteContactMessage(Long id) {
+		contactMessageRepository.deleteById(id);
+	}
 
-    public List<HeroSlider> getActiveHeroSliders() {
-        return heroSliderRepository.findByIsActiveTrueOrderByDisplayOrderAsc();
-    }
+	// SiteSetting Operations
+	public SiteSetting getSiteSetting() {
+		return siteSettingRepository.findById(1L).orElseGet(() -> {
+			SiteSetting defaultSettings = new SiteSetting("Techno Main is a premier core engineering institute.",
+					"Salt Lake City, Sector V, Kolkata, West Bengal", "+91 (123) 456-7890", "info@technomain.edu",
+					"© 2024 Techno Main Salt Lake. All Rights Reserved.");
+			return siteSettingRepository.save(defaultSettings);
+		});
+	}
 
-    public Optional<HeroSlider> getHeroSliderById(Long id) {
-        return heroSliderRepository.findById(id);
-    }
+	public void saveSiteSetting(SiteSetting siteSetting) {
+		siteSetting.setId(1L); // Ensure ID is always 1
+		siteSettingRepository.save(siteSetting);
+	}
 
-    public void saveHeroSlider(HeroSlider heroSlider) {
-        heroSliderRepository.save(heroSlider);
-    }
+	// HeroSlider Operations
+	public List<HeroSlider> getAllHeroSliders() {
+		return heroSliderRepository.findAllByOrderByDisplayOrderAsc();
+	}
 
-    public void deleteHeroSlider(Long id) {
-        heroSliderRepository.deleteById(id);
-    }
+	public List<HeroSlider> getActiveHeroSliders() {
+		return heroSliderRepository.findByIsActiveTrueOrderByDisplayOrderAsc();
+	}
 
-    // Admission Operations
-    public List<Admission> getAllAdmissions() {
-        return admissionRepository.findAll(Sort.by(Sort.Direction.DESC, "submissionDate"));
-    }
+	public Optional<HeroSlider> getHeroSliderById(Long id) {
+		return heroSliderRepository.findById(id);
+	}
 
-    public void saveAdmission(Admission admission) {
-        admissionRepository.save(admission);
-    }
+	public void saveHeroSlider(HeroSlider heroSlider) {
+		heroSliderRepository.save(heroSlider);
+	}
+
+	public void deleteHeroSlider(Long id) {
+		heroSliderRepository.deleteById(id);
+	}
+
+	// Admission Operations
+	public List<Admission> getAllAdmissions() {
+		return admissionRepository.findAll(Sort.by(Sort.Direction.DESC, "submissionDate"));
+	}
+
+	public void saveAdmission(Admission admission) {
+		admissionRepository.save(admission);
+	}
 }
